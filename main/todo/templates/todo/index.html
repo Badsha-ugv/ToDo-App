@@ -1,0 +1,97 @@
+{% extends 'todo/base.html' %}
+{% load static %}
+{% block title %}ToDo App{% endblock %}
+{% block style %}
+    .clear_btn{
+    display:inline-block;
+    float:right;
+    }
+    .add_btn{
+    width: 83px;
+    border-radius: 20px;
+    }
+    .inputText{
+    display: inline-block;
+    width: 48%;
+    margin: 0;
+    }
+    .list-group li {
+    width: 56%;
+    margin:0 auto;
+    }
+    .auth{
+    margin-right: 15px;
+    display: inline-block;
+    font-size: 23px;
+    font-family: initial;
+    }
+
+<!--h1::before {-->
+<!--    content: "";-->
+<!--    position: absolute;-->
+<!--    width: 73px;-->
+<!--    height: 3px;-->
+<!--    background: #7c74f7;-->
+<!--    top: 105px;-->
+<!--    left: 36%;-->
+<!--}-->
+h1::before {
+    content: "";
+    position: absolute;
+    width: 100px;
+    height: 5px;
+    background: #29bb71;
+    top: 130px;
+    left: 46%;
+}
+<!--h1::after {-->
+<!--    content: "";-->
+<!--    position: absolute;-->
+<!--    width: 73px;-->
+<!--    height: 3px;-->
+<!--    background: #7c74f7;-->
+<!--    top: 105px;-->
+<!--    right: 36%;-->
+<!--}-->
+{% endblock %}
+{% block body %}
+{% load static %}
+<div class="left">
+
+    <div class="row">
+    <div class="col text-center">
+        <h1 class="my-4 text-center">Create ToDo</h1>
+        <form method="post" action="create_todo/" class="form-inline">
+            {% csrf_token %}
+            <input type="text" name="contains" class="form-control inputText" placeholder="write here..">
+            <button class="btn btn-success add_btn " type="submit" >ADD</button>
+        </form>
+    </div>
+</div>
+
+    <div class="row mt-4">
+    <div class="col">
+        <ul class="list-group ">
+            {% for item in items %}
+          <li class="list-group-item">{{item.text}}
+          <div class="clear_btn">
+              <form method="post" action="clear_todo/{{ item.id }}/" >{% csrf_token %}
+                  <button  class="btn btn-danger btn-sm" type="submit">Clear</button>
+              </form>
+          </div>
+          </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+{% endblock %}
